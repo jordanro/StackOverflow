@@ -12,7 +12,6 @@ import com.jordanro.stackoverflow.data.entities.Question
 import com.jordanro.stackoverflow.utils.UIUtil
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class QuestionViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -54,7 +53,7 @@ class QuestionViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var dateFormatter = SimpleDateFormat("MMM d ''yy")
         var timeFormatter = SimpleDateFormat("HH:mm")
 
-        fun create(parent: ViewGroup,listener: QuestionAdapter.QuestionItemClickListener): QuestionViewHolder {
+        fun create(parent: ViewGroup,listener: QuestionAdapter.QuestionAdapterListener): QuestionViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.question_item, parent, false)
             view.setOnClickListener{

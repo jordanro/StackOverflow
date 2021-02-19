@@ -1,13 +1,13 @@
 package com.jordanro.stackoverflow.ui.questionlist
 
-import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 
 import com.jordanro.stackoverflow.data.entities.Question
 
-class QuestionAdapter(val listener :QuestionItemClickListener) : PagedListAdapter<Question, QuestionViewHolder>(QuestionComparator){
+class QuestionAdapter(val listener :QuestionAdapterListener) : PagedListAdapter<Question, QuestionViewHolder>(QuestionComparator){
 
 
 
@@ -23,8 +23,17 @@ class QuestionAdapter(val listener :QuestionItemClickListener) : PagedListAdapte
 
     }
 
-    interface QuestionItemClickListener{
+    override fun onCurrentListChanged(
+        previousList: PagedList<Question>?,
+        currentList: PagedList<Question>?
+    ) {
+        super.onCurrentListChanged(previousList, currentList)
+        listener.onCurrentListChanged()
+    }
+
+    interface QuestionAdapterListener{
         fun onQuestionClick(item:Question)
+        fun onCurrentListChanged()
     }
 
     companion object {

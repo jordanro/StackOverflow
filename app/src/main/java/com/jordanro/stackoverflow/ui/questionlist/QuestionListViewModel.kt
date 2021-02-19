@@ -23,6 +23,7 @@ class QuestionListViewModel @ViewModelInject constructor(private val repository:
     val questions :LiveData<PagedList<Question>>  = isFiltered.switchMap {
         val loadQuestions = repository.loadQuestions(it)
         questionResult.value = loadQuestions
+        isRefreshing.postValue(false)
         loadQuestions.data
     }
 
@@ -37,14 +38,12 @@ class QuestionListViewModel @ViewModelInject constructor(private val repository:
 
                 questionResult.value?.refresh()
                 isRefreshing.postValue(false)
-                Log.d("BoundaryCallback", "Refresh done")
 
         }
     }
 
     fun filter(checked: Boolean) {
         isFiltered.postValue(checked)
-        Log.d("BoundaryCallback", "filter $checked")
     }
 
 

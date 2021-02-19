@@ -64,7 +64,7 @@ class QuestionDetailsFragment : Fragment() {
 
     private val webviewClient = object : WebViewClient() {
         override fun onPageFinished(view: WebView, url: String) {
-            progressBar.visibility = View.GONE
+            progressBar?.visibility = View.GONE
         }
     }
 }

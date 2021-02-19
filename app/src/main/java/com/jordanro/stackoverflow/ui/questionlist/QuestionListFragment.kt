@@ -1,7 +1,6 @@
 package com.jordanro.stackoverflow.ui.questionlist
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jordanro.stackoverflow.MainActivity
@@ -19,13 +17,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.question_list_fragment.*
 
 @AndroidEntryPoint
-class QuestionListFragment : Fragment(), QuestionAdapter.QuestionItemClickListener {
+class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener {
 
     companion object {
         fun newInstance() = QuestionListFragment()
     }
     private val viewModel: QuestionListViewModel by viewModels()
     private val adapter = QuestionAdapter(this)
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -49,8 +48,9 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionItemClickListen
 
     private fun initAdapter() {
         list.adapter = adapter
+
+
         viewModel.questions.observe(viewLifecycleOwner, {
-            Log.d("Activity", "list: ${it?.size}")
             adapter.submitList(it)
         })
         viewModel.networkErrors.observe(viewLifecycleOwner,{
@@ -66,6 +66,10 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionItemClickListen
 
     override fun onQuestionClick(item: Question) {
         (activity as MainActivity).showQuestionDetails(item)
+    }
+
+    override fun onCurrentListChanged(){
+        list.layoutManager?.scrollToPosition(0)
     }
 
 }

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">StackOverflow</string>
+    <string name="retry">Retry</string>
+    <string name="asked_at">asked %s at %s</string>
+    <string name="has_been_answered">Has been ansered</string>
+</resources>

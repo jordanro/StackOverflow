@@ -45,6 +45,8 @@ class QuestionViewHolder(view: View): RecyclerView.ViewHolder(view) {
             .resize(imageSize, imageSize)
             .centerCrop()
             .into(thumbnail)
+
+        itemView.tag = item
     }
 
     companion object {
@@ -52,9 +54,12 @@ class QuestionViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var dateFormatter = SimpleDateFormat("MMM d ''yy")
         var timeFormatter = SimpleDateFormat("HH:mm")
 
-        fun create(parent: ViewGroup): QuestionViewHolder {
+        fun create(parent: ViewGroup,listener: QuestionAdapter.QuestionItemClickListener): QuestionViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.question_item, parent, false)
+            view.setOnClickListener{
+                listener.onQuestionClick(it.tag as Question)
+            }
             return QuestionViewHolder(view)
         }
     }

@@ -12,19 +12,20 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.jordanro.stackoverflow.MainActivity
 import com.jordanro.stackoverflow.R
 import com.jordanro.stackoverflow.data.entities.Question
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.question_list_fragment.*
 
 @AndroidEntryPoint
-class QuestionListFragment : Fragment() {
+class QuestionListFragment : Fragment(), QuestionAdapter.QuestionItemClickListener {
 
     companion object {
         fun newInstance() = QuestionListFragment()
     }
     private val viewModel: QuestionListViewModel by viewModels()
-    private val adapter = QuestionAdapter()
+    private val adapter = QuestionAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -48,7 +49,6 @@ class QuestionListFragment : Fragment() {
 
     private fun initAdapter() {
         list.adapter = adapter
-
         viewModel.questions.observe(viewLifecycleOwner, {
             Log.d("Activity", "list: ${it?.size}")
             adapter.submitList(it)
@@ -62,6 +62,10 @@ class QuestionListFragment : Fragment() {
                 list.layoutManager?.scrollToPosition(0)
             }
         })
+    }
+
+    override fun onQuestionClick(item: Question) {
+        (activity as MainActivity).showQuestionDetails(item)
     }
 
 }

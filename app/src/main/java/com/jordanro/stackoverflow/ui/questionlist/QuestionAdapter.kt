@@ -7,21 +7,24 @@ import androidx.recyclerview.widget.DiffUtil
 
 import com.jordanro.stackoverflow.data.entities.Question
 
-class QuestionAdapter() : PagedListAdapter<Question, QuestionViewHolder>(QuestionComparator){
+class QuestionAdapter(val listener :QuestionItemClickListener) : PagedListAdapter<Question, QuestionViewHolder>(QuestionComparator){
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
-       return QuestionViewHolder.create(parent)
+       return QuestionViewHolder.create(parent,listener)
     }
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val item = getItem(position)
         if(item != null) {
-            holder.itemView.visibility = View.VISIBLE
             holder.onBindViewHolder(item)
         }
 
+    }
+
+    interface QuestionItemClickListener{
+        fun onQuestionClick(item:Question)
     }
 
     companion object {

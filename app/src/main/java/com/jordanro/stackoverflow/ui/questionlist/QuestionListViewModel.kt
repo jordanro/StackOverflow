@@ -1,6 +1,5 @@
 package com.jordanro.stackoverflow.ui.questionlist
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,21 +15,25 @@ import kotlinx.coroutines.launch
 
 class QuestionListViewModel @ViewModelInject constructor(private val repository: QuestionsRepository): ViewModel() {
 
-    private var questionResult  = MutableLiveData<QuestionResult>()
 
     private val isFiltered = MutableLiveData<Boolean>(false)
 
+    private val fullQuestionResult = repository.loadQuestions(false)
+    private val filteredQuestionResult = repository.loadQuestions(true)
+
+    private var questionResult  = MutableLiveData<QuestionResult>(fullQuestionResult)
+
+    val isRefreshing = MutableLiveData<Boolean>()
+
     val questions :LiveData<PagedList<Question>>  = isFiltered.switchMap {
-        val loadQuestions = repository.loadQuestions(it)
-        questionResult.value = loadQuestions
-        isRefreshing.postValue(false)
-        loadQuestions.data
+        val questionResult = if(it) filteredQuestionResult else fullQuestionResult
+        this.questionResult.value = questionResult
+        questionResult.data
     }
 
     val networkErrors: LiveData<String> = questionResult.switchMap {
         it.networkErrors
     }
-    val isRefreshing = MutableLiveData<Boolean>()
 
     fun doRefresh() {
         isRefreshing.postValue(true)
@@ -38,7 +41,6 @@ class QuestionListViewModel @ViewModelInject constructor(private val repository:
 
                 questionResult.value?.refresh()
                 isRefreshing.postValue(false)
-
         }
     }
 

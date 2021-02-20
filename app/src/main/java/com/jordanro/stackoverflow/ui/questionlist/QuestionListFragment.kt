@@ -25,6 +25,7 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener
     private val viewModel: QuestionListViewModel by viewModels()
     private val adapter = QuestionAdapter(this)
 
+    var isFiltering = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -35,6 +36,7 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener
         super.onViewCreated(view, savedInstanceState)
 
         filter.setOnCheckedChangeListener { buttonView, isChecked ->
+            isFiltering = true
             viewModel.filter(isChecked)
         }
         val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -69,7 +71,10 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener
     }
 
     override fun onCurrentListChanged(){
-        list.layoutManager?.scrollToPosition(0)
+        if(isFiltering) {
+            list.layoutManager?.scrollToPosition(0)
+            isFiltering = false
+        }
     }
 
 }

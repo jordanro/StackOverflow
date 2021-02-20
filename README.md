@@ -1,6 +1,6 @@
 
 
-<h1>StackOverflow Application
+<h1>StackOverflow Application</h1>
   
   Built as a single Activity application with 2 Fragments:
   

@@ -5,10 +5,11 @@
   Built as a single Activity application with 2 Fragments:
   
   <h2>QuestionListFragment</h2> 
-  Responsible for showing a paginated list of StackOverflow questions and an ability to filter answered questions.  
+  Responsible for showing a paginated list of StackOverflow questions and an ability to filter answered questions.
+  
   Data loading and presentation is done using the [Paging Library](https://developer.android.com/topic/libraries/architecture/paging) with the Network & Database approach.
   
-  It is implemented by the MVVM design pattern:
+  Implemented by the MVVM design pattern:
   
   <h3>Model</h3>
   
@@ -27,7 +28,7 @@
  <h3>View Model</h3>   
       
   **QuestionListViewModel:** Supplies the fragment with LiveData of LiveData<PagedList<Question>> retrieved from the QuestionsRepository.
-  Handles refresh and filter switches request delegated fromthe fragment 
+  Handles refresh and filter switches request delegated from the fragment 
   
   <h3>View</h3>
   
@@ -35,7 +36,8 @@
   Delegate Question click events to overlaying Activity. 
   
   
-  **QuestionDetailsFragment** - Showing a selected question inside a webview, supporting page loading indicator and history navigation.
+  <h2>QuestionDetailsFragment</h2>
+  Responsible for a selected question inside a webview, supporting page loading indicator and history navigation.
   
   
   

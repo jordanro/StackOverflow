@@ -2,13 +2,14 @@ package com.jordanro.stackoverflow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jordanro.stackoverflow.application.NavigationComponent
 import com.jordanro.stackoverflow.data.entities.Question
 import com.jordanro.stackoverflow.ui.questiondtail.QuestionDetailsFragment
 import com.jordanro.stackoverflow.ui.questionlist.QuestionListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showQuestionDetails(question: Question){
+    override fun showQuestionDetails(question: Question){
         supportFragmentManager.beginTransaction()
             .add(R.id.container, QuestionDetailsFragment.newInstance(question))
             .addToBackStack("QuestionDetailsFragment")

@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jordanro.stackoverflow.MainActivity
 import com.jordanro.stackoverflow.R
+import com.jordanro.stackoverflow.application.NavigationComponent
 import com.jordanro.stackoverflow.data.entities.Question
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.question_list_fragment.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener {
@@ -22,10 +24,13 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener
     companion object {
         fun newInstance() = QuestionListFragment()
     }
+
     private val viewModel: QuestionListViewModel by viewModels()
     private val adapter = QuestionAdapter(this)
 
     var isFiltering = false
+
+    @Inject lateinit var navComponent: NavigationComponent;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -67,7 +72,7 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener
     }
 
     override fun onQuestionClick(item: Question) {
-        (activity as MainActivity).showQuestionDetails(item)
+        navComponent.showQuestionDetails(item)
     }
 
     override fun onCurrentListChanged(){

@@ -13,9 +13,9 @@
   
   <h3>Model</h3>
   
-  **StackOverflowService:** Responsible for loading the data from Stackoverflow API. Implemented using the [Retrofit library](https://square.github.io/retrofit/) 
+  **StackOverflowService:** Responsible for loading the data from Stackoverflow API. Implemented using the [Retrofit library](https://square.github.io/retrofit/).
   
-  **AppDatabase and QuestionsDao:** Responsible for saving the network data localy and retrieving a filtered and non filtered data. Implemented using the [Room](https://developer.android.com/jetpack/androidx/releases/room) 
+  **AppDatabase and QuestionsDao:** Responsible for saving the network data localy and retrieving a filtered and non filtered data. Implemented using the [Room](https://developer.android.com/jetpack/androidx/releases/room).
   
   **QuestionBoundaryCallback:** Handles the orchestration between Network Data and Local storage. 
   Responsible for loading data from the network when needed and saving it to the Database.

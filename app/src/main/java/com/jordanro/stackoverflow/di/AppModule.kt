@@ -3,6 +3,7 @@ package com.jordanro.stackoverflow.di
 import android.content.Context
 import com.jordanro.stackoverflow.data.local.AppDatabase
 import com.jordanro.stackoverflow.data.local.QuestionsDao
+import com.jordanro.stackoverflow.data.remote.StackExchangeRequestInterceptor
 import com.jordanro.stackoverflow.data.remote.StackOverflowService
 import com.jordanro.stackoverflow.repositories.QuestionsRepository
 import dagger.Module
@@ -21,6 +22,7 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class AppModule {
 
+    val API_KEY = "wmillGPc4ja9WczeR59yUA(("
     val BASE_URL = "https://api.stackexchange.com/2.2/"
 
     @Singleton
@@ -28,7 +30,7 @@ class AppModule {
     fun provideHttpClient(@ApplicationContext appContext: Context) : OkHttpClient =
         OkHttpClient().newBuilder()
             .cache(Cache(appContext.cacheDir, 10 * 1024 * 1024.toLong()))
-//            .addInterceptor(IMDBRequestInterceptor(API_KEY,86400))
+            .addInterceptor(StackExchangeRequestInterceptor(API_KEY))
             .build()
 
     @Singleton

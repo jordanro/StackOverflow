@@ -35,7 +35,7 @@ class QuestionListFragment : Fragment(), QuestionAdapter.QuestionAdapterListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        filter.setOnCheckedChangeListener { buttonView, isChecked ->
+        questionFilter.setOnCheckedChangeListener { buttonView, isChecked ->
             isFiltering = true
             viewModel.filter(isChecked)
         }

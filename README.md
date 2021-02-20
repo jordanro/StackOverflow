@@ -4,8 +4,8 @@
   
   Built as a single Activity application with 2 Fragments:
   
-  <h2>QuestionListFragment</h2> - Responsible for showing a paginated list of StackOverflow questions and an ability to filter answered questions.
-  
+  <h2>QuestionListFragment</h2> 
+  Responsible for showing a paginated list of StackOverflow questions and an ability to filter answered questions.  
   Data loading and presentation is done using the [Paging Library](https://developer.android.com/topic/libraries/architecture/paging) with the Network & Database approach.
   
   It is implemented by the MVVM design pattern:
